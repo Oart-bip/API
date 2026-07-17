@@ -1,20 +1,30 @@
 import express from 'express' // chamamos a biblioteca express 
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient(); // esta variavel guardara tudo que precisarmos do prisma 
 
 const app = express() // criamos a variavel app e transformamos a biblioteca express em uma funcao   
 app.use(express.json()) // linha que permite com que o express leia arquivos Json
 
 const users = [] //array de memoria 
 
-app.post('/usuarios', (req, res) => { //aqui na rota post eu irei salvar meus usuarios
+app.post('/usuarios', async (req, res) => { //aqui na rota post eu irei criar e salvar meus usuarios
 
-    users.push(req.body)
+    await prisma.user.create({ // criando usuario -- funcao do await: usado para funcoes assíncronas. manda o JS esperar 
+        data: {
+            email: req.body.email, //requisicao vindo do body
+            name: req.body.name,
+            age: req.body.age
+        }
+    }) // aqui é user porque o model no schema.prisma é chamado user
 
-    res.send('Ok aqui deu certo') 
+    res.status(201).json(req.body)
 
 })
 
-app.get('/usuarios', (req, res) => { // aqui na rota get eu vou listar meu usuarios 
-    res.json(users) // metodo send do express - resposta
+// aqui na rota get eu vou listar meu usuarios 
+app.get('/usuarios', (req, res) => {
+    res.status(200).json(users) 
 }) 
 // rota que esta listando a rota de usuarios com o metodo HTTP: GET -- req: request / res: response
 // => {} eh padrao do express 
