@@ -27,6 +27,25 @@ app.get('/usuarios', async (req, res) => {
     res.status(200).json(users) 
 }) 
 
+app.put('/usuarios/:id', async (req, res) => { //aqui na rota put onde irei atualizar o usuario
+    // :id - cria uma variavel
+
+    await prisma.user.update({ // atualizando usuario -- funcao do await: usado para funcoes assíncronas. manda o JS esperar 
+
+        where:  { // funcao do where: aonde que eu vou atualizar meu usuario?
+            id: req.params.id
+        },
+
+        data: {
+            email: req.body.email, //requisicao vindo do body
+            name: req.body.name,
+            age: req.body.age
+        }
+    }) // aqui é user porque o model no schema.prisma é chamado user
+
+    res.status(201).json(req.body)
+})
+
 app.listen(3000) // aqui falamos para o servidor aonde ele vai rodar. porta
 // rota que esta listando a rota de usuarios com o metodo HTTP: GET -- req: request / res: response
 // => {} eh padrao do express 
