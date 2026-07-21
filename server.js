@@ -21,9 +21,22 @@ app.post('/usuarios', async (req, res) => { //aqui na rota post eu irei criar e 
 
 // aqui na rota get eu vou listar meu usuarios 
 app.get('/usuarios', async (req, res) => { 
-    
-    const users = await prisma.user.findMany() // metodo prisma que indica: busca varios registros. retorna um array
 
+    //criando filtro
+    let users = [] // let, variavel que muda de valor
+
+    if (req.query) { 
+        users = await prisma.user.findMany({
+            where: {
+                name: req.query.name,
+                email: req.query.email,
+                age: req.query.age
+
+            }
+        })
+    } else {
+        users = await prisma.user.findMany()  // metodo prisma que indica: busca varios registros. retorna um array
+    }
     res.status(200).json(users) 
 }) 
 
@@ -45,6 +58,17 @@ app.put('/usuarios/:id', async (req, res) => { //aqui na rota put onde irei atua
 
     res.status(201).json(req.body)
 })
+
+app.delete('/usuarios/:id', async  (req, res) => {
+    await prisma.user.delete 
+        where: {
+            id: req.params.id
+        }
+
+    res.status(200).json({message: 'Usuario deletado com sucesso.'})
+})
+
+
 
 app.listen(3000) // aqui falamos para o servidor aonde ele vai rodar. porta
 // rota que esta listando a rota de usuarios com o metodo HTTP: GET -- req: request / res: response
