@@ -31,15 +31,15 @@ function Home() {
       </forms>
 
       {users.map(user => ( // to pegando os meus usuarios, mapeando com o map e guardando dentro do user
-        <div key={user.id}>
+        <div key={user.id}> 
           <div>
             <p>Nome:{user.name} </p>
             <p>Idade:{user.age} </p>
             <p>Email:{user.email} </p>
           </div>
           <button>
-            <img src={lixeira} />
-          </button>
+            <img src={lixeira} /> 
+          </button> 
         </div>
       ))}
 
