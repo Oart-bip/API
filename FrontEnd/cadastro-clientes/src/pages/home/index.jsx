@@ -22,13 +22,13 @@ function Home() {
 
   return (
     <div className='container'>
-      <forms>
+      <form>
         <h1> Cadastro de Usuarios</h1>
         <input name='nome' type='text'></input>
         <input name='idade' type='number'></input>
         <input name='email' type='email'></input>
         <button type='button'>Cadastrar</button>
-      </forms>
+      </form>
 
       {users.map(user => ( // to pegando os meus usuarios, mapeando com o map e guardando dentro do user
         <div key={user.id}> 
@@ -37,7 +37,7 @@ function Home() {
             <p>Idade:{user.age} </p>
             <p>Email:{user.email} </p>
           </div>
-          <button>
+          <button> 
             <img src={lixeira} /> 
           </button> 
         </div>
