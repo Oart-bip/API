@@ -1,4 +1,4 @@
-import lixeira from '../../assets/lixeira.png'
+
 import './style.css'
 
 function Home() {
@@ -24,22 +24,20 @@ function Home() {
     <div className='container'>
       <form>
         <h1> Cadastro de Usuarios</h1>
-        <input name='nome' type='text'></input>
-        <input name='idade' type='number'></input>
-        <input name='email' type='email'></input>
+        <input placeholder="Nome" name='nome' type='text'></input>
+        <input placeholder="Idade" name='idade' type='number'></input>
+        <input placeholder="Email" name='email' type='email'></input> 
         <button type='button'>Cadastrar</button>
       </form>
 
       {users.map(user => ( // to pegando os meus usuarios, mapeando com o map e guardando dentro do user
-        <div key={user.id}> 
+        <div key={user.id} className='card'> 
           <div>
             <p>Nome:{user.name} </p>
             <p>Idade:{user.age} </p>
             <p>Email:{user.email} </p>
+            <button type='button'>Excluir</button>
           </div>
-          <button> 
-            <img src={lixeira} /> 
-          </button> 
         </div>
       ))}
 
