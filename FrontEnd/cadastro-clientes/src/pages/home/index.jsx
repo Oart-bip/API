@@ -1,24 +1,23 @@
 
+import { useEffect } from 'react' // executar sempre que a pagina abrir 
 import './style.css'
+import api from '../../services/api'
 
 function Home() {
   // react a funcao sempre letra maiuscula 
 
-  const users = [{ // array e seus objetos. JS  
-    id: '3131dasdasds',
-    name: 'Rodolfo',
-    age: 33,
-    email: 'rod@email.com'
-  },
+  let users = [] // criar a variavel users que começa vazio
 
-  {
-    id: '777575hghgh',
-    name: 'Aline',
-    age: 25,
-    email: 'aline@email.com'
-  },
-
-  ]
+  async function getUsers(){ // aqui criamos uma função assíncrona chamada getUsers
+    const usersFromApi = await api.get('/usuarios') /* requisição HTTP GET para a rota usuarios, e o await espera a resposta chegar. 
+    quando a resposta chega. ela é atribuida ao users*/
+    users = usersFromApi.data
+    
+    
+  }
+  useEffect(()  => { // o useEffect é para chamadas da API 
+    getUsers()
+  }, []) // este array vazio serve para: execute apenas uma vez apos o componente aparecer na tela, apos isso, liste os usuarios pelo getUsers
 
   return (
     <div className='container'>

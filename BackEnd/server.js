@@ -1,10 +1,12 @@
 import express from 'express' // chamamos a biblioteca express 
 import { PrismaClient } from "@prisma/client"
+import cors from 'cors'
 
 const prisma = new PrismaClient() // esta variavel guardara tudo que precisarmos do prisma 
 
 const app = express() // criamos a variavel app e transformamos a biblioteca express em uma funcao   
 app.use(express.json()) // linha que permite com que o express leia arquivos Json
+app.use(cors())
 
 app.post('/usuarios', async (req, res) => { //aqui na rota post eu irei criar e salvar meus usuarios
 
